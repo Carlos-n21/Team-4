@@ -1,7 +1,2 @@
 venv/
 .env
-# Ignore cache files
-*.pyc
-*.pyo
-*.pyd
-__pycache__/

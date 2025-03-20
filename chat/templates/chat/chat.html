@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <div class="row text-center py-2"">
+        {% if user.is_authenticated %}
+        <div class="col-md-10 col-lg-8 mx-auto">
+            <h1 class="text-center">What chat room would you like to enter?</h1>
+            <select id="room-name-input" name="room_name" class="py-2 w-100 rounded shadow">
+                <option value="" disabled selected>-- Select a chat room --</option>
+                {% for chatroom in chatrooms %}
+                    <option value="{{ chatroom.name }}">{{ chatroom.friendly_name }}</option>
+                {% empty %}
+                    <option disabled>No chatrooms available</option>
+                {% endfor %}
+            </select>
+        </div>
+        {% else %}
+        <div id="not_allowed" class="col-md-10 col-sm-12 col-xl-10 mx-auto"></div>
+            <h1 class="text-center pt-2">Oops! Page Not Found.</h1>
+            <p class="text-center px-3">You must be logged in to access the chat service!</p>
+            <a href="{% url 'home' %}" class="btn btn-pink rounded mt-3 p-2"
+                aria-label="Brings you back to Home Page">Back to Home
+                page
+            </a>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<script>
+    document.querySelector('#room-name-input').focus();
+    document.querySelector('#room-name-input').onchange = function(e) {
+        roomName = document.querySelector('#room-name-input').value;
+        console.log('Selected room: ', roomName); 
+        if (roomName) {
+            window.location.pathname = '/chat/' + roomName + '/';
+        }
+    };
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const chatRoomDropdown = document.getElementById("chat-room-dropdown"); // Adjust the ID to match your dropdown's ID
+        if (chatRoomDropdown) {
+            chatRoomDropdown.selectedIndex = 0; // Resets to the first option
+        }
+    });
+</script>
+{% endblock %}

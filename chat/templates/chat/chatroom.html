@@ -1,0 +1,101 @@
+
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container d-flex flex-column py-4">
+    {% if user.is_authenticated %}
+    <span id="user-username" style="display:none;">"{{ user.username }}"</span>
+    <h3 class="text-center px-3">Hi {{ user.username }}! You're in the <strong>{{ friendly_name }}</strong> chatroom</h3>
+    <div class="row flex-grow-1">
+        <div class="col-md-10 col-lg-8 mx-auto d-flex flex-column h-auto">
+            <div id="chat-log" class="chat-log pt-0 h-100 flex-grow-1" style="width: 100%; max-height: 500px; min-height: 100px; overflow-y: auto; white-space: pre-wrap;">  
+            </div>
+            <input id="chat-message-input" type="text" class="py-2" size="100" style="width: 100%">
+            <div class="text-center mt-2">
+                <input id="chat-message-submit" type="button" class="btn btn-pink" value="Send">
+                {{ room_name|json_script:"room-name" }}
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <div id="not_allowed" class="col-md-10 col-sm-12 col-xl-10 mx-auto">
+        <h1 class="text-center pt-2">Oops! Page Not Found.</h1>
+        <p class="text-center px-3">You must be logged in to access the chatrooms!</p>
+        <a href="{% url 'home' %}" class="btn btn-pink rounded mt-3 p-2"
+                aria-label="Brings you back to Home Page">Back to Home page
+        </a>
+    </div>
+    {% endif %}
+</div>
+<script>
+    const roomName = JSON.parse(document.getElementById('room-name').textContent);
+    const username = JSON.parse(document.getElementById('user-username').textContent);
+
+    const chatSocket = new WebSocket(
+        (window.location.protocol === "https:" ? "wss://" : "ws://") +
+        window.location.host +
+        "/ws/chat/" +
+        roomName +
+        "/"
+    );
+
+    let lastSender = "";
+
+    chatSocket.onmessage = function(e) {
+        const data = JSON.parse(e.data);
+        const messageText = data.message;
+
+        const splitIndex = messageText.indexOf(":");
+        const sender = splitIndex !== -1 ? messageText.substring(0, splitIndex) : "";
+        const messageContent = splitIndex !== -1 ? messageText.substring(splitIndex + 1).trim() : messageText;
+        
+        const messageElement = document.createElement("div")
+        messageElement.classList.add("chat-msg");
+
+        console.log("DEBUG User: ", username);
+
+        const isCurrentUser = sender === username;
+        messageElement.classList.add(isCurrentUser ? "msg-from-user" : "msg-from-other");
+
+        
+        if (sender !== lastSender) {
+            messageElement.textContent = `${sender}: ${messageContent}`;
+        } else {
+            messageElement.textContent = messageContent;
+        }
+
+        document.querySelector('#chat-log').appendChild(messageElement);
+
+        lastSender = sender;
+    };
+
+    chatSocket.onclose = function(e) {
+        console.error('Chat socket closed unexpectedly');
+    };
+
+    
+    document.querySelector('#chat-message-input').focus();
+    document.querySelector('#chat-message-input').onkeyup = function(e) {
+        if (e.key === 'Enter') {
+            document.querySelector('#chat-message-submit').click();
+        }
+    };
+
+    document.querySelector('#chat-message-submit').onclick = function(e) {
+        const messageInputDom = document.querySelector('#chat-message-input');
+        const message = messageInputDom.value;
+
+    // Send the message with the username
+        chatSocket.send(JSON.stringify({
+            'message': message,
+            'username': username
+        }));
+
+        messageInputDom.value = '';
+    };
+
+</script>
+{% endblock content %}
+
+
