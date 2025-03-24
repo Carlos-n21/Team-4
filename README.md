@@ -211,6 +211,8 @@ Below, we can see the responsiveness of the site in differernt devices after usi
 ![Static Badge](https://img.shields.io/badge/Django-092E20?style=flat&logo=django&logoColor=white)
 ![Static Badge](readme\cloudinary-squareLogo.webp)
 
+Other dependencies can be seen in [Requirements](requirements.txt), as we were unable to get badges for all of them.
+
 [Back to top](#top)
 
 ## Deployment
