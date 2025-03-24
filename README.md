@@ -152,7 +152,7 @@ https://fontsgeek.com/fonts/Courier-Regular
   <img src="readme\hermentor.png">
 
 ### Her Story
-  <img src="readme\herstory.png">
+  <img src="readme\her-story.png">
 
 ### Her Buddies
   <img src="readme\herbuddies.png">
