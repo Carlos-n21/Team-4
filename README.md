@@ -25,6 +25,7 @@ Another idea was to show positive inspirational quotes - "Affirmations", for use
     - [Affirmation](#affirmation)
     - [About](#about)
     - [Profile](#profile)
+    - [Retro Editor](#retro-editor)
 - [Responsive Design](#responsive-design)
 - [Future Features](#future-features)
 - [Technologies Used](#technologies-used)
@@ -157,7 +158,9 @@ https://fontsgeek.com/fonts/Courier-Regular
   <img src="readme\herbuddies.png">
 
 ### Chat
-  <img src="readme\chat.png">
+  <img src="readme\chat-1.png"><br>
+  <img src="readme\chat-2.png"><br>
+  <img src="readme\chat-3.png"><br>
 
 ### Affirmation
   <img src="readme\affirmation.png">
@@ -168,7 +171,9 @@ https://fontsgeek.com/fonts/Courier-Regular
 ### Profile
   <img src="readme\profile.png">
 
-
+### Retro Editor
+  <img src="readme\retro-editor.png"><br>
+  <img src="readme\retro-editor-2.png">
 
 [Back to top](#top)
 
@@ -284,6 +289,7 @@ It automatically writes a Config Variable to Heroku, telling the app where to lo
 <img src="readme\HTML-validator-login.png"><br>
 <img src="readme\HTML-validator-signup.png"><br>
 <img src="readme\HTML-validator-user-profile.png"><br>
+<img src="readme\HTML-validator-retro-editor.png"><br>
 </details>
 
 ### CSS Validation
@@ -303,12 +309,12 @@ All CSS files came with no errors.
 <img src="readme\Lighthouse-Her-story.png"><br>
 <img src="readme\Lighthouse-homepage.png"><br>
 <img src="readme\Lighthouse-user-profile.png"><br>
+<img src="readme\Lighthouse-retro-editor.png"><br>
 </details>
 
 ### Bugs yet to be Fixed
 - Some pages came with errors on the HTML validation that can be due to code formatting and to be checked in the future.
 - Bell not updating when clicking and see notifications, possibly JavaScript neding review.
-- Link for zoom calls show error message "This site can’t be reached" due to the links not working at the moment.
 
 [Back to top](#top)
 
